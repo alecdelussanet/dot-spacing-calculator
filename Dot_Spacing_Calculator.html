@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dot Spacing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9f7ef;
+            border: 1px solid #d4edda;
+            border-radius: 4px;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dot Spacing Calculator</h1>
+        <p>Use this calculator to determine the center-to-center spacing of dots in a hexagonal pattern. Fill in the dot diameter and the desired coverage percentage to calculate the spacing.</p>
+
+        <label for="diameter">Dot Diameter (mm):</label>
+        <input type="number" id="diameter" placeholder="Enter dot diameter in mm" required>
+
+        <label for="coverage">Coverage Percentage (%):</label>
+        <input type="number" id="coverage" placeholder="Enter coverage percentage (e.g., 30)" required>
+
+        <button onclick="calculateSpacing()">Calculate Spacing</button>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function calculateSpacing() {
+            const diameter = parseFloat(document.getElementById('diameter').value);
+            const coverage = parseFloat(document.getElementById('coverage').value) / 100;
+
+            if (isNaN(diameter) || isNaN(coverage) || coverage <= 0 || coverage > 1) {
+                alert('Please enter valid values for dot diameter and coverage percentage.');
+                return;
+            }
+
+            const radius = diameter / 2;
+            const spacing = Math.sqrt((2 * Math.PI * Math.pow(radius, 2)) / (coverage * Math.sqrt(3)));
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `For a dot diameter of <strong>${diameter} mm</strong> and a coverage of <strong>${(coverage * 100).toFixed(2)}%</strong>, the required center-to-center spacing is <strong>${spacing.toFixed(2)} mm</strong>.`;
+        }
+    </script>
+</body>
+</html>
